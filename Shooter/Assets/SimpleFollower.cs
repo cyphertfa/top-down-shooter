@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimplePlayerFollower : MonoBehaviour {
+public class SimpleFollower : MonoBehaviour {
 
     /// <summary>
     /// Target Transform for the camera to follow.
@@ -33,7 +33,5 @@ public class SimplePlayerFollower : MonoBehaviour {
 
         Vector3 finalPosition = posTarget - posMouse*Weight;
         transform.position = new Vector3(finalPosition.x, finalPosition.y, z);
-
-        Debug.Log(string.Format("{0}", transform.position), this);
     }
 }
