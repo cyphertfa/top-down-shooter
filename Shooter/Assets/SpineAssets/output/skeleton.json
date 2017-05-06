@@ -1,1 +1,25 @@
-{"skeleton":{"hash":"cFEFfnRZrra/VQtU3r2t3lEvZAo","spine":"3.5.40","width":224.12,"height":128.3},"bones":[{"name":"root"},{"name":"aimBone","parent":"root","length":128,"rotation":-0.11}],"slots":[{"name":"torso","bone":"root","attachment":"torso"},{"name":"aimDir","bone":"aimBone","attachment":"aimDir"}],"skins":{"default":{"aimDir":{"aimDir":{"x":128,"rotation":-90,"width":128,"height":64}},"torso":{"torso":{"width":128,"height":128}}}},"animations":{"animation":{}}}
+{
+"skeleton": { "hash": "8BxCjUtCIaOTszuThZ3ggTKfz/M", "spine": "3.5.40", "width": 225.7, "height": 128, "images": "./images/" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "aimBone", "parent": "root", "length": 128 },
+	{ "name": "bulletLocation", "parent": "aimBone", "x": 160 }
+],
+"slots": [
+	{ "name": "torso", "bone": "root", "attachment": "torso" },
+	{ "name": "aimDir", "bone": "aimBone", "attachment": "aimDir" }
+],
+"skins": {
+	"default": {
+		"aimDir": {
+			"aimDir": { "x": 129.7, "rotation": -90, "width": 128, "height": 64 }
+		},
+		"torso": {
+			"torso": { "width": 128, "height": 128 }
+		}
+	}
+},
+"animations": {
+	"animation": {}
+}
+}
