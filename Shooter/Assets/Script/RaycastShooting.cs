@@ -9,16 +9,14 @@ public class RaycastShooting : MonoBehaviour
 	public float damage = 1;
 	public LayerMask layermask; 
 	float whenToFire = 0 ;
-	Transform firePoint ; 
-	public int health = 10; 
+	public Transform firingPoint ; 
+	public int health = 10;
+
+    Aim aim;
 	// Use this for initialization
 	void Awake ()
 	{
-		firePoint = transform.FindChild  ("FiringPoint");
-		if (firePoint == null )
-		{
-			Debug.LogError ("No firing point");
-		}
+        aim = GetComponent<Aim>();
 	}
 	
 	// Update is called once per frame
@@ -43,19 +41,23 @@ public class RaycastShooting : MonoBehaviour
 
 	void Fire ()
 	{
-		Vector2 mousePosition = new Vector2 (Camera.main.ScreenToWorldPoint (Input.mousePosition).x,Camera.main.ScreenToWorldPoint (Input.mousePosition).y);
-		Vector2 firePointposition = new Vector2 (firePoint.position.x, firePoint.position.y);
-		RaycastHit2D hit = Physics2D.Raycast (firePointposition, mousePosition-firePointposition, 10, layermask );
-		Debug.DrawLine (firePointposition,(mousePosition-firePointposition)*10, Color.black  );
+        Vector2 firePosition = firingPoint.position;
+        Vector2 direction = aim.AimVector;
+
+        Debug.Log(direction);
+
+		RaycastHit2D[] hits = Physics2D.RaycastAll (firePosition, direction, 10, layermask );
+		Debug.DrawLine (firePosition, firePosition + (direction*10f), Color.black);
 		//Debug.Log ("hit");
-	
-
-		if (hit.collider != null)
-		{
-			health -= 1;
-			Debug.Log ("dead");
-
-		}
+	    foreach(RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+            {
+                health -= 1;
+                Debug.Log("Hit");
+            }
+        }
+		
 		if (health <= 0) 
 		{
 			enemy = GameObject.FindWithTag ("Enemy");

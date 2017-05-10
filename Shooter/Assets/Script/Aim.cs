@@ -18,6 +18,14 @@ public class Aim : MonoBehaviour {
         }
     }
 
+    public Vector2 AimVector
+    {
+        get
+        {
+            return new Vector2(Mathf.Cos(AimAngle*Mathf.Deg2Rad), Mathf.Sin(AimAngle*Mathf.Deg2Rad)); 
+        }
+    }
+
     private bool isUsingMouse = true;
 
     private float aimAngle;
