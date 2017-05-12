@@ -9,12 +9,22 @@ using UnityEngine;
 public class Aim : MonoBehaviour {
 
     /// <summary>
+    /// Maximum speed in degrees per second this object may turn.
+    /// </summary>
+    public float TurnSpeed = 500;
+
+    /// <summary>
     /// Get the angle this GameObject is aiming towards.
     /// At 0 degrees, Y faces upwards, X faces rightward.
     /// </summary>
-    public float AimAngle { get
+    public float AimDegrees {
+        get
         {
             return aimAngle;
+        }
+        set
+        {
+            aimAngle = value;
         }
     }
 
@@ -22,11 +32,15 @@ public class Aim : MonoBehaviour {
     {
         get
         {
-            return new Vector2(Mathf.Cos(AimAngle*Mathf.Deg2Rad), Mathf.Sin(AimAngle*Mathf.Deg2Rad)); 
+            return new Vector2(Mathf.Cos(AimDegrees*Mathf.Deg2Rad), Mathf.Sin(AimDegrees*Mathf.Deg2Rad)); 
+        }
+        set
+        {
+            aimAngle = Mathf.Atan2(value.y, value.x) * 180f / Mathf.PI;
         }
     }
 
-    private bool isUsingMouse = true;
+   
 
     private float aimAngle;
 
@@ -37,44 +51,7 @@ public class Aim : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
-        //TODO: How to determine a joystick or mouse is in use, and switch between modes.
-
-        if(isUsingMouse)
-        {
-            aimAngle = GetMouseAngle() ;
-        }
-        else
-        {
-            aimAngle = GetJoypadAngle();
-        }
+        transform.eulerAngles = Vector3.forward * Mathf.MoveTowardsAngle(transform.eulerAngles.z, AimDegrees, TurnSpeed * Time.deltaTime);
     }
 
-    /// <summary>
-    /// Retreives the angle in degrees of the mouse from the center of the screen.
-    /// </summary>
-    /// <returns>Angle in degrees.</returns>
-    public float GetMouseAngle()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        //make 0,0 screen center.
-        mousePosition -= new Vector3(Screen.width / 2, Screen.height / 2, 0);
-
-        return Mathf.Atan2(mousePosition.y, mousePosition.x) * 180f / Mathf.PI;
-    }
-
-    public float GetJoypadAngle()
-    {
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-
-        //If there is no input on the joystick then remain facing in the current direction.
-        if(input == Vector3.zero)
-        {
-            return Mathf.Atan2(input.y, input.x) * 180f / Mathf.PI;
-        }
-        else
-        {
-            return aimAngle;
-        }
-    }
 }

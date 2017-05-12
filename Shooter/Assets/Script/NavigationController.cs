@@ -36,7 +36,7 @@ public class NavigationController : MonoBehaviour {
             //Velocity needs to be converted to XY from XZ.
             nextVelocity = new Vector3(nextVelocity.x, nextVelocity.z, nextVelocity.y);
 
-            GetComponent<Rigidbody2D>().velocity = nextVelocity;
+            GetComponent<Movement>().SetMovement(nextVelocity, false);
         }
         //Rotate the world back to XY.
         NavMeshManager.SetNavigationMode(false);

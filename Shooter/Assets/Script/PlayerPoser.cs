@@ -9,12 +9,12 @@ public class PlayerPoser : MonoBehaviour {
     
 
     Aim aim;
-    Shooting shooting;
+    Weapon weapon;
 
     // Use this for initialization
     void Start () {
         aim = GetComponent<Aim>();
-        shooting = GetComponent<Shooting>();
+        weapon = GetComponent<Weapon>();
     }
 	
 	// Update is called once per frame
@@ -23,7 +23,7 @@ public class PlayerPoser : MonoBehaviour {
         //skelAnimation.Skeleton.FindBone("aimBone").rotation = aim.AimAngle;
 
         Color aimDirColor;
-        if(shooting.CanFire)
+        if(weapon.CanFire)
         {
             aimDirColor = new Color(1, 1, 1, 1);
         }

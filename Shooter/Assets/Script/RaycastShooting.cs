@@ -1,18 +1,40 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastShooting : MonoBehaviour 
+public class RaycastShooting : Shootable 
 {
-	private GameObject enemy;
-	public float fireDelay = 0; 
-	public float damage = 1;
-	public LayerMask layermask; 
-	float whenToFire = 0 ;
-	public Transform firingPoint ; 
-	public int health = 10;
+    /// <summary>
+    /// The location the projectile should spawn.
+    /// </summary>
+    public Transform FiringPoint;
+    //TODO Hitscan Visual type
+    /// <summary>
+    /// Minimum delay between firing in seconds.
+    /// </summary>
+    public float ShotDelay = 0.05f;
+    /// <summary>
+    /// How much damage the hitscan should do
+    /// TODO: Move this into a hitscan prefab (like projectiles)
+    /// </summary>
+    public float Damage = 1;
+	/// <summary>
+    /// Layers which should be used to check for contacts.
+    /// </summary>
+	public LayerMask LayerMask;
 
-    Aim aim;
+    private float shotCooldown;
+    private Aim aim;
+
+    public override bool CanFire
+    {
+        get
+        {
+            return shotCooldown <= 0;
+        }
+    }
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -22,49 +44,35 @@ public class RaycastShooting : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		//Fire ();
-		if (fireDelay == 0) {
-			if (Input.GetButtonDown ("Fire1")) {
-				Fire ();
-			}
-		}
-		else
-		{
-			if (Input.GetButton ("Fire1") && Time.time > whenToFire) 
-			{
-				whenToFire = Time.time + 1 / fireDelay;
-				Fire ();
-			}
-		}
-			
-	}
+        shotCooldown -= Time.deltaTime;
+    }
 
-	void Fire ()
-	{
-        Vector2 firePosition = firingPoint.position;
-        Vector2 direction = aim.AimVector;
-
-        Debug.Log(direction);
-
-		RaycastHit2D[] hits = Physics2D.RaycastAll (firePosition, direction, 10, layermask );
-		Debug.DrawLine (firePosition, firePosition + (direction*10f), Color.black);
-		//Debug.Log ("hit");
-	    foreach(RaycastHit2D hit in hits)
+    public override bool Shoot(GameObject parent)
+    {
+        bool canFire = CanFire;
+        if(canFire)
         {
-            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+            Vector2 firePosition = FiringPoint.position;
+            Vector2 direction = aim.AimVector;
+
+            RaycastHit2D[] hits = Physics2D.RaycastAll(firePosition, direction, 10, LayerMask);
+            Debug.DrawLine(firePosition, firePosition + (direction * 10f), Color.black);
+            //Debug.Log ("hit");
+            foreach (RaycastHit2D hit in hits)
             {
-                health -= 1;
-                Debug.Log("Hit");
+                if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+                {
+                    hit.collider.GetComponent<Health>().Damage(1);
+                }
             }
+            shotCooldown = ShotDelay;
         }
-		
-		if (health <= 0) 
-		{
-			enemy = GameObject.FindWithTag ("Enemy");
-			Destroy (enemy);	
-		}
+        return canFire;
+        
+    }
 
-	}
-
-
+    public override bool Reload(GameObject parent)
+    {
+        return false; //Not yet implemented.
+    }
 }

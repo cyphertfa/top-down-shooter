@@ -4,52 +4,42 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float TurnSpeed = 500;
-    public float MoveSpeed = 240;
-    public float RunSpeed = 500;
+    /// <summary>
+    /// The non-sprinting speed this game object moves at.
+    /// </summary>
+    public float MoveSpeed = 12;
+    /// <summary>
+    /// The sprinting speed this game object moves at.
+    /// </summary>
+    public float RunSpeed = 24;
 
-    private Aim aim;
+
+
+    //These values will be populated during updates.
+    private Vector2 direction;
+    private bool isSprinting;
+
     // Use this for initialization
     void Start()
     {
-        aim = GetComponent<Aim>();
+    }
+
+
+    public void SetMovement(Vector2 direction, bool isSprinting)
+    {
+        this.direction = direction;
+        this.isSprinting = isSprinting;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        //Calculate the velocity based on the direction and move/run speed.
         Vector2 velocity = new Vector2();
-
-        float xAxis = Input.GetAxis("Horizontal");
-        float yAxis = Input.GetAxis("Vertical");
-
-        Vector2 direction = new Vector2(xAxis, yAxis);
-        direction.Normalize();
-	
-        velocity = direction * MoveSpeed * Time.deltaTime;
+        velocity = direction * (isSprinting ? RunSpeed : MoveSpeed);
 
         Rigidbody2D body = GetComponent<Rigidbody2D>();
         body.velocity = velocity;
-
-        //Jason, I have moved to code for detecting the angle between the player to the 'Aim' class
-        transform.eulerAngles = Vector3.forward * Mathf.MoveTowardsAngle(transform.eulerAngles.z, aim.AimAngle, TurnSpeed * Time.deltaTime);
     }
-	void LateUpdate () 
-	{
-
-		//sprinting with left shift
-		if (Input.GetKey (KeyCode.LeftShift)) 
-		{
-			MoveSpeed = 500;
-
-		}
-		else  if (!Input.GetKey (KeyCode.LeftShift)) 
-		{
-			MoveSpeed = 240;
-
-		}
-	}
-
 }
