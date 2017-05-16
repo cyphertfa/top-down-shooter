@@ -61,6 +61,13 @@ public class WeaponSwitch : MonoBehaviour {
     /// <param name="slot">The index of the slot to switch to.</param>
     public void SwitchWeapon(int slot)
     {
-
+		for (var i = 0; i < transform.childCount; i++)
+		{
+			if (i == slot) {
+				transform.GetChild (i).gameObject.SetActiveRecursively (true);
+			} else {
+				transform.GetChild (i).gameObject.SetActiveRecursively (false);
+			}
+		}
     }
 }
