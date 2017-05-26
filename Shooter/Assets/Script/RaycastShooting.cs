@@ -25,7 +25,6 @@ public class RaycastShooting : Shootable
 	public LayerMask LayerMask;
 
     private float shotCooldown;
-    private Aim aim;
 
     public override bool CanFire
     {
@@ -38,7 +37,6 @@ public class RaycastShooting : Shootable
 	// Use this for initialization
 	void Awake ()
 	{
-        aim = GetComponent<Aim>();
 	}
 	
 	// Update is called once per frame
@@ -53,7 +51,7 @@ public class RaycastShooting : Shootable
         if(canFire)
         {
             Vector2 firePosition = FiringPoint.position;
-            Vector2 direction = aim.AimVector;
+            Vector2 direction = parent.GetComponent<Aim>().AimVector;
 
             RaycastHit2D[] hits = Physics2D.RaycastAll(firePosition, direction, 10, LayerMask);
             Debug.DrawLine(firePosition, firePosition + (direction * 10f), Color.black);

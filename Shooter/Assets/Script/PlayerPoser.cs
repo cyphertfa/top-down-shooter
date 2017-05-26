@@ -6,8 +6,6 @@ using UnityEngine;
 public class PlayerPoser : MonoBehaviour {
     public SkeletonAnimation SkeletonToPose;
 
-    
-
     Aim aim;
     Weapon weapon;
 
