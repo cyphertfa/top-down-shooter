@@ -65,7 +65,7 @@ public class ProjectileShooting : Shootable {
             }
 
             //Adding force to the bullet which willl allow the bullet to travel forward
-            projectileBody.AddForce(transform.right * BulletSpeed);
+            projectileBody.AddForce(FiringPoint.transform.right * BulletSpeed);
 
             //Getting rid of temporary bullet every 1 second -TODO: projectile should be responsible for lifetime!
             Destroy(projectile, 1.0f);

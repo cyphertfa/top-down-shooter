@@ -1,25 +1,170 @@
 {
-"skeleton": { "hash": "8BxCjUtCIaOTszuThZ3ggTKfz/M", "spine": "3.5.40", "width": 225.7, "height": 128, "images": "./images/" },
+"skeleton": { "hash": "Q2sYVP8N5gNvABzIQerVhiundd8", "spine": "3.6.34", "width": 217.7, "height": 147.88, "images": "./images/" },
 "bones": [
 	{ "name": "root" },
+	{ "name": "LeftGun", "parent": "root", "rotation": 90, "x": -60, "y": -20.88 },
+	{ "name": "RightGun", "parent": "root", "rotation": 90, "x": 60, "y": -20.88 },
 	{ "name": "aimBone", "parent": "root", "length": 128 },
-	{ "name": "bulletLocation", "parent": "aimBone", "x": 160 }
+	{ "name": "bulletLocation", "parent": "aimBone", "x": 160 },
+	{ "name": "visor", "parent": "root" }
 ],
 "slots": [
-	{ "name": "torso", "bone": "root", "attachment": "torso" },
-	{ "name": "aimDir", "bone": "aimBone", "attachment": "aimDir" }
+	{ "name": "LeftGun", "bone": "LeftGun", "attachment": "Gun" },
+	{ "name": "torso", "bone": "root", "attachment": "Hull" },
+	{ "name": "aimDir", "bone": "aimBone", "attachment": "aimDir" },
+	{ "name": "HullClipping", "bone": "root", "attachment": "HullClipping" },
+	{ "name": "Visor", "bone": "visor", "attachment": "Visor" },
+	{ "name": "RightGun", "bone": "RightGun", "attachment": "Gun" }
 ],
 "skins": {
 	"default": {
+		"HullClipping": {
+			"HullClipping": {
+				"type": "clipping",
+				"end": "Visor",
+				"vertexCount": 8,
+				"vertices": [ -56.98, -0.12, -40.88, 40.8, -0.36, 59.41, 40.96, 40.4, 56.89, -0.57, 39.2, -39.77, 0.13, -55.61, -39.74, -39.51 ],
+				"color": "ce3a3aff"
+			}
+		},
+		"LeftGun": {
+			"Gun": { "x": -22, "width": 82, "height": 40 }
+		},
+		"RightGun": {
+			"Gun": { "x": -22, "width": 82, "height": 40 }
+		},
+		"Visor": {
+			"Visor": { "width": 82, "height": 44 }
+		},
 		"aimDir": {
-			"aimDir": { "x": 129.7, "rotation": -90, "width": 128, "height": 64 }
+			"aimDir": { "x": 129.7, "scaleX": 0.25, "scaleY": 0.25, "rotation": -90, "width": 128, "height": 64 }
 		},
 		"torso": {
+			"Hull": { "width": 128, "height": 128 },
 			"torso": { "width": 128, "height": 128 }
 		}
 	}
 },
 "animations": {
+	"Aim180": {
+		"bones": {
+			"aimBone": {
+				"rotate": [
+					{ "time": 0, "angle": -90 },
+					{ "time": 2, "angle": 90 }
+				]
+			},
+			"visor": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": -20 },
+					{ "time": 1, "x": -20, "y": 0 },
+					{ "time": 2, "x": 0, "y": 20 }
+				]
+			},
+			"RightGun": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{ "time": 2, "angle": -180 }
+				],
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0 },
+					{ "time": 1, "x": -30, "y": 0 },
+					{ "time": 2, "x": 0, "y": 0 }
+				]
+			},
+			"LeftGun": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{ "time": 2, "angle": -180 }
+				],
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0 },
+					{ "time": 1, "x": 30, "y": 0 },
+					{ "time": 2, "x": 0, "y": 0 }
+				]
+			}
+		}
+	},
+	"Aim360": {
+		"bones": {
+			"LeftGun": {
+				"rotate": [
+					{ "time": 0, "angle": -90 },
+					{ "time": 0.5, "angle": 0 },
+					{ "time": 1, "angle": -270 },
+					{ "time": 1.5, "angle": -180 },
+					{ "time": 2, "angle": -90 }
+				],
+				"translate": [
+					{ "time": 0, "x": 30, "y": 0 },
+					{ "time": 0.5, "x": 0, "y": -20.16 },
+					{ "time": 1, "x": 30, "y": 0 },
+					{ "time": 1.5, "x": 0, "y": 20.88 },
+					{ "time": 2, "x": 30, "y": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 0.5, "x": 1, "y": -1, "curve": "stepped" },
+					{ "time": 1.5, "x": 1, "y": 1 }
+				]
+			},
+			"RightGun": {
+				"rotate": [
+					{ "time": 0, "angle": -90 },
+					{ "time": 0.5, "angle": 0 },
+					{ "time": 1, "angle": -270 },
+					{ "time": 1.5, "angle": -180 },
+					{ "time": 2, "angle": -90 }
+				],
+				"translate": [
+					{ "time": 0, "x": -30, "y": 0 },
+					{ "time": 0.5, "x": 0, "y": -20.16 },
+					{ "time": 1, "x": -30, "y": 0 },
+					{ "time": 1.5, "x": 0, "y": 20.88 },
+					{ "time": 2, "x": -30, "y": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 0.5, "x": 1, "y": -1, "curve": "stepped" },
+					{ "time": 1.5, "x": 1, "y": 1 }
+				]
+			},
+			"aimBone": {
+				"rotate": [
+					{ "time": 0, "angle": -180 },
+					{ "time": 0.5, "angle": -90 },
+					{ "time": 1, "angle": 0 },
+					{ "time": 1.5, "angle": 90 },
+					{ "time": 2, "angle": -180 }
+				]
+			},
+			"visor": {
+				"translate": [
+					{ "time": 0, "x": -20, "y": 0 },
+					{ "time": 0.5, "x": 0, "y": -19.97 },
+					{ "time": 1, "x": 20, "y": 0 },
+					{ "time": 1.5, "x": 0, "y": 20 },
+					{ "time": 2, "x": -20, "y": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 0.5, "x": -1, "y": 1, "curve": "stepped" },
+					{ "time": 1.5, "x": 1, "y": 1 }
+				]
+			}
+		},
+		"drawOrder": [
+			{ "time": 0 },
+			{
+				"time": 0.5,
+				"offsets": [
+					{ "slot": "LeftGun", "offset": 5 },
+					{ "slot": "RightGun", "offset": -5 }
+				]
+			},
+			{ "time": 1.5 }
+		]
+	},
 	"animation": {}
 }
 }

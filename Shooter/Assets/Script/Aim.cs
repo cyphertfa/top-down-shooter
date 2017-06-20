@@ -51,7 +51,7 @@ public class Aim : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.eulerAngles = Vector3.forward * Mathf.MoveTowardsAngle(transform.eulerAngles.z, AimDegrees, TurnSpeed * Time.deltaTime);
+        //transform.eulerAngles = Vector3.forward * Mathf.MoveTowardsAngle(transform.eulerAngles.z, AimDegrees, TurnSpeed * Time.deltaTime);
     }
 
 }

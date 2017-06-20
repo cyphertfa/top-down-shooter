@@ -19,6 +19,20 @@ public class PlayerPoser : MonoBehaviour {
 	void Update () {
         //Set aim bone to mouse angle.
         //skelAnimation.Skeleton.FindBone("aimBone").rotation = aim.AimAngle;
+        
+        SkeletonToPose.Skeleton.SetToSetupPose();
+        //Spine.TrackEntry animation = SkeletonToPose.state.SetAnimation(0, "Aim360", true);
+        float animTime = ((aim.AimDegrees + 180) / 360f) * 2;
+        //animation.TrackTime = animTime;
+        //animation.timeScale = 0;
+
+        SkeletonToPose.Skeleton.Data.FindAnimation("Aim360").Apply(SkeletonToPose.Skeleton, animTime, animTime, false, new Spine.ExposedList<Spine.Event>(), 1, Spine.MixPose.Setup, Spine.MixDirection.In);
+
+        SkeletonToPose.Skeleton.Update(Time.deltaTime);
+        SkeletonToPose.Skeleton.UpdateWorldTransform();
+
+
+        Debug.Log(animTime);
 
         Color aimDirColor;
         if(weapon.CanFire)

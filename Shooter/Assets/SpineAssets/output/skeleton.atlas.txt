@@ -1,19 +1,40 @@
 
 skeleton.png
-size: 256,256
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-aimDir
+Gun
+  rotate: false
+  xy: 132, 200
+  size: 82, 40
+  orig: 82, 40
+  offset: 0, 0
+  index: -1
+Hull
+  rotate: false
+  xy: 2, 178
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+Visor
   rotate: false
   xy: 2, 2
+  size: 82, 44
+  orig: 82, 44
+  offset: 0, 0
+  index: -1
+aimDir
+  rotate: false
+  xy: 132, 242
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 torso
   rotate: false
-  xy: 2, 68
+  xy: 2, 48
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
